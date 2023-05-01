@@ -125,7 +125,17 @@ function source:get_debug_name()
     return 'emmet-vim'
 end
 
+local enabled = true
+
+function Toggle()
+  enabled = !enabled
+end
+
 function source:complete(request, callback)
+    if not enabled then
+      return
+    end
+
     local opts = self:_validate_options(request)
 
     if not vim.tbl_contains(opts.filetypes, get_file_type()) then
